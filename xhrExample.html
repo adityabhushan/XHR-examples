@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <script type='text/javascript'>
+    function httpRequest(method, url, callback) {
+        var request = new XMLHttpRequest()
+        request.open(method, url, true)
+
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+              //console.log(request)
+                callback(request)
+
+            }
+        }
+        return request
+    }
+
+    function httpGet(url, callback) {
+        var request = httpRequest('GET', url, function(request) {
+
+            callback(request.responseText)
+        })
+        //console.log(request)
+        request.send()
+    }
+
+    // httpGet('https://api.github.com/', function(rt) {
+    //     console.log(rt)
+    // })
+
+    function httpGetJSON(url, callback) {
+      httpGet(url, callback)
+    }
+
+    httpGetJSON('https://api.github.com/', function(responseText){
+        console.log(JSON.parse(responseText))
+      })
+
+
+    </script>
+</head>
+
+</html>
